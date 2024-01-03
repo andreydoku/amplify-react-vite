@@ -1,6 +1,6 @@
 import { Amplify } from 'aws-amplify';
 
-import { Authenticator, withAuthenticator, WithAuthenticatorProps } from '@aws-amplify/ui-react';
+import { withAuthenticator, WithAuthenticatorProps } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 
 //import awsExports from './aws-exports';
@@ -18,7 +18,7 @@ Amplify.configure({
 				// 	redirectSignOut: ['http://localhost:3000/', 'https://example.com/'],
 				// 	responseType: 'code',
 				// },
-				
+
 				// username: 'true',
 				// email: 'true', // Optional
 			}
@@ -38,32 +38,32 @@ import { useState, useEffect } from 'react';
 import { User } from './assets/types/User';
 
 
-function App({ signOut , user: authUser } : WithAuthenticatorProps ) {
-	
-	
-	const [user, setUser] = useState<User|null>(null);
-	
-	console.log( {authUser: authUser, user: user} );
-	
+function App({ signOut, user: authUser }: WithAuthenticatorProps) {
+
+
+	const [user, setUser] = useState<User | null>(null);
+
+	console.log({ authUser: authUser, user: user });
+
 	useEffect(() => {
-	  
-		fetchUserAttributes().then( userAttributes => setUserAttributes(userAttributes) );
-	  
-	}, [] );
-	
-	function setUserAttributes( userAttributes: FetchUserAttributesOutput) : void{
-		
-		const user:User = new User( 
-			userAttributes.sub ?? "" ,  
-			userAttributes.given_name ?? "" , 
+
+		fetchUserAttributes().then(userAttributes => setUserAttributes(userAttributes));
+
+	}, []);
+
+	function setUserAttributes(userAttributes: FetchUserAttributesOutput): void {
+
+		const user: User = new User(
+			userAttributes.sub ?? "",
+			userAttributes.given_name ?? "",
 			userAttributes.family_name ?? ""
 		);
 		setUser(user);
-		
+
 	}
-	
-	const fullName =  user ? (user.firstName + " " + user.lastName) : "";
-	
+
+	const fullName = user ? user.getLastName() : "";
+
 	return (
 		<>
 			<h1>Hello {fullName}</h1>

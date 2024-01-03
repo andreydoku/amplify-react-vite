@@ -10,7 +10,7 @@ export class User {
 		this.lastName = lastName;
 	}
 	
-	getLastName():string {
+	getFullName():string {
 		return this.firstName + " " + this.lastName;
 	}
 	

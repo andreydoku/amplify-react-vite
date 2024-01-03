@@ -62,7 +62,7 @@ function App({ signOut, user: authUser }: WithAuthenticatorProps) {
 
 	}
 
-	const fullName = user ? user.getLastName() : "";
+	const fullName = user ? user.getFullName() : "";
 
 	return (
 		<>

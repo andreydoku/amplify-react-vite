@@ -32,28 +32,37 @@ Amplify.configure({
 // cognitoUserPoolsTokenProvider.setKeyValueStorage(new CookieStorage());
 
 
-import { getCurrentUser } from 'aws-amplify/auth';
+import { FetchUserAttributesOutput } from 'aws-amplify/auth';
 import { fetchUserAttributes } from 'aws-amplify/auth';
 import { useState, useEffect } from 'react';
+import { User } from './assets/types/User';
 
 
-function App({ isPassedToWithAuthenticator, signOut, user }) {
+function App({ signOut , user: authUser } : WithAuthenticatorProps ) {
 	
-	console.log( {user: user} );
 	
-	//getCurrentUser().then( user => console.log( {currentUser: user} ) )
+	const [user, setUser] = useState<User|null>(null);
 	
-	const [user2, setUser2] = useState(null);
-	
-	console.log( {user: user, user2: user2} );
+	console.log( {authUser: authUser, user: user} );
 	
 	useEffect(() => {
 	  
-		fetchUserAttributes().then( userAttributes => setUser2(userAttributes) );
+		fetchUserAttributes().then( userAttributes => setUserAttributes(userAttributes) );
 	  
-	}, [] )
+	}, [] );
 	
-	const fullName =  user2 ? (user2.given_name + " " + user2.family_name) : "";
+	function setUserAttributes( userAttributes: FetchUserAttributesOutput) : void{
+		
+		const user:User = new User( 
+			userAttributes.sub ?? "" ,  
+			userAttributes.given_name ?? "" , 
+			userAttributes.family_name ?? ""
+		);
+		setUser(user);
+		
+	}
+	
+	const fullName =  user ? (user.firstName + " " + user.lastName) : "";
 	
 	return (
 		<>

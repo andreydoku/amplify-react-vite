@@ -2,6 +2,18 @@ import { fetchAuthSession } from 'aws-amplify/auth';
 import { Todo } from './assets/types/Todo';
 
 
+const baseUrl = "https://dbbrshqpak.execute-api.us-east-2.amazonaws.com";
+
+function getStage(): string{
+	const env = import.meta.env.VITE_ENV;
+	
+	if( env == "local" )  return "dev";
+	if( env == "dev"   )  return "dev";
+	if( env == "prod"  )  return "prod";
+	
+	return "dev";
+	
+}
 
 
 async function getAuthToken(): Promise<string>{
@@ -26,9 +38,9 @@ export async function getTodos(): Promise<Todo[]>{
 	try{
 		const authToken:string = await getAuthToken();
 		
-		const baseUrl = "https://dbbrshqpak.execute-api.us-east-2.amazonaws.com";
-		const resourceUrl = "/dev/todos";
-		const url = baseUrl + resourceUrl;
+		const stage = getStage();
+		const resource = "todos";
+		const url = `${baseUrl}/${stage}/${resource}`;
 		
 		console.log({ authToken: authToken });
 		

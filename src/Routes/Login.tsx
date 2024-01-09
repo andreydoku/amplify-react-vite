@@ -7,9 +7,7 @@ import { Navigate } from "react-router-dom";
 export default function Login() {
 	
 	const { route } = useAuthenticator(context => [context.route]);
-	console.log({
-		route: route,
-	});
+	
 	
 	if( route != "authenticated" ){
 		return(

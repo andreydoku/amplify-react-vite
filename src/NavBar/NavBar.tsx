@@ -5,28 +5,34 @@ import { useAuthenticator } from "@aws-amplify/ui-react";
 
 export default function NavBar() {
 	
-	const { route } = useAuthenticator(context => [context.route]);
+	//const { route } = useAuthenticator(context => [context.route]);
 	const { user, signOut } = useAuthenticator((context) => [context.user]);
 	
+	const {authStatus} = useAuthenticator( context => [context.authStatus])
 	
 	console.log({
-		route: route,
-		user: user
+		authStatus: authStatus,
 	});
 	
-	const loggedIn = (route == "authenticated");
-	console.log({loggedIn});
+	const loggedIn:boolean = (authStatus == "authenticated");
 	
 	
 	return (
 		<div className='nav-bar'>
+			
+			<div className="left">
+				<Link to="/home"  className='nav-link'>LOGO</Link>
+			</div>
+			
+			<div className="center">
+				<Link to="/home"  className='nav-link'>Home</Link>
+				<Link to="/page1" className='nav-link'>Page 1</Link>
+			</div>
+			
+			<div className="right">
+				<LoginLogout loggedIn={loggedIn} signOut={signOut}/>
+			</div>
 
-			<Link to="/home"  className='nav-link'>Home</Link>
-			<Link to="/page1" className='nav-link'>Page 1</Link>
-			{/* <Link to="/login" className='nav-link'>Log In</Link> */}
-			
-			<LoginLogout loggedIn={loggedIn} signOut={signOut}/>
-			
 		</div>
 	)
 }

@@ -8,7 +8,6 @@ export default function Login() {
 	
 	const { route } = useAuthenticator(context => [context.route]);
 	
-	
 	if( route != "authenticated" ){
 		return(
 			<div className="login">

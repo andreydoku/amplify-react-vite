@@ -5,13 +5,13 @@ import {
 	RouterProvider,
 } from "react-router-dom";
 
-import './index.css'
+import './index.scss';
 
 
 import Root from './Routes/Root';
-import Page1 from './Routes/Page1';
-import Home from './Routes/Home';
-import Login from './Routes/Login';
+import Page1 from './Routes/Page1/Page1';
+import Home from './Routes/Home/Home';
+import Login from './Routes/Login/Login';
 
 
 
@@ -23,6 +23,18 @@ Amplify.configure({
 		Cognito: {
 			userPoolClientId: '1nhfl0h0nc5d1hhautebv2acsf',
 			userPoolId: 'us-east-2_AggDUQFjv',
+			loginWith: { // Optional
+				// oauth: {
+				// 	domain: 'abcdefghij1234567890-29051e27.auth.us-east-1.amazoncognito.com',
+				// 	scopes: ['openid email phone profile aws.cognito.signin.user.admin '],
+				// 	redirectSignIn: ['http://localhost:3000/', 'https://example.com/'],
+				// 	redirectSignOut: ['http://localhost:3000/', 'https://example.com/'],
+				// 	responseType: 'code',
+				// }
+
+				// username: 'true',
+				// email: 'true'
+			}
 		}
 	}
 });

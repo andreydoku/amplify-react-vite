@@ -1,7 +1,6 @@
 import { Authenticator, useAuthenticator } from "@aws-amplify/ui-react";
 import '@aws-amplify/ui-react/styles.css';
 
-import "./Login.scss";
 import { Navigate } from "react-router-dom";
 
 export default function Page1() {

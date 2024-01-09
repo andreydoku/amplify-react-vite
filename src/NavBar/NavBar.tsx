@@ -1,5 +1,5 @@
 
-import "./NavBar.css";
+import "./NavBar.scss";
 import { Link } from "react-router-dom";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 
@@ -8,20 +8,19 @@ export default function NavBar() {
 	//const { route } = useAuthenticator(context => [context.route]);
 	const { user, signOut } = useAuthenticator((context) => [context.user]);
 	
-	const {authStatus} = useAuthenticator( context => [context.authStatus])
+	const { route } = useAuthenticator(context => [context.route]);
+	const loggedIn:boolean = (route == "authenticated");
 	
-	console.log({
-		authStatus: authStatus,
-	});
 	
-	const loggedIn:boolean = (authStatus == "authenticated");
+	const logo = `TODOS (${import.meta.env.VITE_ENV})`;
+	
 	
 	
 	return (
 		<div className='nav-bar'>
 			
 			<div className="left">
-				<Link to="/home"  className='nav-link'>LOGO</Link>
+				<Link to="/home"  className='nav-link'>{logo}</Link>
 			</div>
 			
 			<div className="center">

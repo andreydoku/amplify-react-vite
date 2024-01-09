@@ -1,13 +1,15 @@
 import { fetchAuthSession } from 'aws-amplify/auth';
 import { Todo } from './assets/types/Todo';
 
+
+
+
 async function getAuthToken(): Promise<string>{
-	
 	
 	try {
 		const authSession = await fetchAuthSession();
 		const authToken = authSession.tokens?.idToken?.toString();
-		// const authToken = undefined;
+		
 		if( authToken == undefined ){
 			return Promise.reject("failed to get auth token");
 		}
@@ -16,7 +18,6 @@ async function getAuthToken(): Promise<string>{
 	catch (error) {
 		return Promise.reject("failed to get auth token");
 	}
-	
 	
 }
 
@@ -51,11 +52,5 @@ export async function getTodos(): Promise<Todo[]>{
 	catch(error){
 		return Promise.reject(error);
 	}
-	
-	
-	
-	
-	
-	return [];
 	
 }

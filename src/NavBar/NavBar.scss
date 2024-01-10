@@ -1,0 +1,26 @@
+.nav-bar{
+	background-color: #4285F4;
+	padding: 10px 40px;
+	
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	
+	color: white;
+	
+	
+}
+
+.nav-bar .nav-link{
+	color: white;
+	text-decoration: none;
+	font-size: 20px;
+	
+	transition: background-color 0.2s ease-out;
+	background-color: transparent;
+    padding: 10px 10px;
+	
+}
+.nav-bar .nav-link:hover{
+	background-color: rgba(255,255,255 , 0.25);
+}

@@ -2,18 +2,9 @@ import { fetchAuthSession } from 'aws-amplify/auth';
 import { Todo } from './assets/types/Todo';
 
 
-const baseUrl = "https://dbbrshqpak.execute-api.us-east-2.amazonaws.com";
 
-function getStage(): string{
-	const env = import.meta.env.VITE_ENV;
-	
-	if( env == "local" )  return "dev";
-	if( env == "dev"   )  return "dev";
-	if( env == "prod"  )  return "prod";
-	
-	return "dev";
-	
-}
+
+
 
 
 async function getAuthToken(): Promise<string>{
@@ -35,12 +26,18 @@ async function getAuthToken(): Promise<string>{
 
 export async function getTodos(): Promise<Todo[]>{
 	
+	const baseUrl:string|undefined = import.meta.env.VITE_TODOS_API
+	const resource = "todos";
+	const url = `${baseUrl}/${resource}`;
+	
+	if( !baseUrl ){
+		console.error("VITE_TODOS_API not set");
+		return Promise.reject("VITE_TODOS_API not set");
+	}
+	
+	
 	try{
 		const authToken:string = await getAuthToken();
-		
-		const stage = getStage();
-		const resource = "todos";
-		const url = `${baseUrl}/${stage}/${resource}`;
 		
 		console.log({ authToken: authToken });
 		
@@ -62,6 +59,7 @@ export async function getTodos(): Promise<Todo[]>{
 		
 	}
 	catch(error){
+		console.error("error retrieving Todos");
 		return Promise.reject(error);
 	}
 	

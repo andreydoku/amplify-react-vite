@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { getTodos } from "../../RectClient";
+import { getTodos } from "../../RestClient";
 import { Todo } from "../../assets/types/Todo";
+
 
 export default function TodoList() {
 
@@ -12,11 +13,15 @@ export default function TodoList() {
 	const blah = async () => {
 		
 		try{
+			console.log( "fetching Todos...")
 			const todos:Todo[] = await getTodos();
+			console.log( "successfully retrieved Todos: " );
+			console.log({ todos: todos });
 			setTodos( todos );
 			setLoadingState("loaded");
 		}
 		catch( e ){
+			console.error( e );
 			setLoadingState("error");
 		}
 		
@@ -33,7 +38,7 @@ export default function TodoList() {
 	if( loadingState == "loading" ){
 		return(
 			<div className="todo-list">
-				<h1>Loading...</h1>
+				<h2>Loading...</h2>
 			</div>
 		)
 	}
@@ -41,7 +46,7 @@ export default function TodoList() {
 	if( loadingState == "error" ){
 		return(
 			<div className="todo-list">
-				<h1>Sum Ting Wong</h1>
+				<h2>Sum Ting Wong</h2>
 			</div>
 		)
 	}
@@ -49,7 +54,7 @@ export default function TodoList() {
 	
 	return (
 		<div className="todo-list">
-			<h1>TodoList</h1>
+			<h2>TodoList</h2>
 			{ todos.map( (todo:Todo) => 
 				<p key={todo.id}>
 					{todo.title}

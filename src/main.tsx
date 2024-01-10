@@ -20,8 +20,8 @@ import { Authenticator } from '@aws-amplify/ui-react';
 Amplify.configure({
 	Auth: {
 		Cognito: {
-			userPoolClientId: '1nhfl0h0nc5d1hhautebv2acsf',
-			userPoolId: 'us-east-2_AggDUQFjv',
+			userPoolId: import.meta.env.VITE_USER_POOL_ID,
+			userPoolClientId: import.meta.env.VITE_USER_POOL_CLIENT_ID,
 			loginWith: { // Optional
 				// oauth: {
 				// 	domain: 'abcdefghij1234567890-29051e27.auth.us-east-1.amazoncognito.com',
